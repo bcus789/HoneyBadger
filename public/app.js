@@ -16,7 +16,6 @@ $.getJSON('/articles', function(data) {
 
 // When you click the Fetch button
 $(document).on('click', '.btn', function() {
-  alert("That's all i got!");
 
   $.ajax({
     method: 'GET',

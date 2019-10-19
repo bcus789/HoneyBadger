@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 var cheerio = require('cheerio');
-var axios = require('request');
+var axios = require('axios');
 
 var db = require('./models');
 
@@ -27,7 +27,7 @@ app.get('/scrape', function(req, res) {
   axios.get('https://www.atlasobscura.com/articles').then(function(response) {
     var $ = cheerio.load(response.data);
 
-    $('span.title').each(function(i, element) {
+    $('h3.title').each(function(i, element) {
       var result = {};
 
       result.title = $(this)
