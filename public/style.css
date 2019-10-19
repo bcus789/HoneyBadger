@@ -1,9 +1,27 @@
 #jumbo {
   margin-top: 5% !important;
+  border: 5px !important;
+  border-style:solid !important;
+  border-color: black !important;
+}
+#badger{
+  margin-top:-40px !important;
 }
 
 h1 {
+  margin-top:-20px !important;
   font-family: 'atreyuregular' !important;
-  font-size: 50px !important;
+  font-size: 80px !important;
   letter-spacing: 4px;
+}
+
+#sub{
+  margin-bottom:30px !important;
+  font-size: 23px;
+}
+
+#scrape{
+  color: black;
+  margin-bottom: -40px !important;
+  
 }
