@@ -2,7 +2,6 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
-var moment = require('moment');
 
 var cheerio = require('cheerio');
 var request = require('request');
@@ -38,7 +37,6 @@ app.get('/scrape', function(req, res) {
         .siblings('p')
         .text()
         .trim();
-      var articleCreated = moment().format('YYYY MM DD hh:mm:ss');
 
       var result = {
         title: title,
