@@ -15,6 +15,10 @@ app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('public'));
 
+mongoose.connect('mongodb://localhost/atlasObscura', {
+  useNewUrlParser: true,
+});
+
 app.get('/', function(req, res) {
   res.send(index.html);
 });
