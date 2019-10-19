@@ -2,9 +2,8 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
-
 var cheerio = require('cheerio');
-var request = require('request');
+var axios = require('request');
 
 var db = require('./models');
 
@@ -21,14 +20,11 @@ app.get('/', function(req, res) {
 });
 
 app.get('/scrape', function(req, res) {
-  request('https://www.atlasobscura.com/articles', function(
-    error,
-    response,
-    html,
-  ) {
-    var $ = cheerio.load(html);
+  axios.get('https://www.atlasobscura.com/articles').then(function(response) {
 
-    $('.title-link').each(function(i, element) {
+    var $ = cheerio.load(response.data);
+
+    $('span.title').each(function(i, element) {
       var title = $(element)
         .children()
         .text();
@@ -64,6 +60,7 @@ app.get('/scrape', function(req, res) {
     });
   });
 });
+
 
 // Start the server
 app.listen(PORT, function() {
