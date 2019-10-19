@@ -7,11 +7,7 @@ $.getJSON('/articles', function(data) {
         data[i].title +
         "</h5></a><hr><p class='card-text'>" +
         data[i].snippet +
-        "</p><button data-id='" +
-        data[i]._id +
-        "' class='btn-note btn btn-outline-primary btn-sm' data-toggle='modal' data-target='#myModal' style='margin-right:10px;'>Note</button><button id='btn-save' data-id='" +
-        data[i]._id +
-        "' class='btn btn-outline-primary btn-sm'>Save Article</button></div></div></div>",
+        "</p><button data-id='"
     );
   }
 
@@ -20,7 +16,7 @@ $.getJSON('/articles', function(data) {
 
 // When you click the Fetch button
 $(document).on('click', '.btn', function() {
-  alert("That's all I got!");
+  alert("That's all i got!");
 
   $.ajax({
     method: 'GET',
