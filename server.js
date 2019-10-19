@@ -21,46 +21,40 @@ app.get('/', function(req, res) {
 
 app.get('/scrape', function(req, res) {
   axios.get('https://www.atlasobscura.com/articles').then(function(response) {
-
     var $ = cheerio.load(response.data);
 
     $('span.title').each(function(i, element) {
-      var title = $(element)
-        .children()
+      var result = {};
+
+      result.title = $(this)
+        .children('a')
         .text();
-      var link = $(element).attr('href');
-      var snippet = $(element)
-        .siblings('p')
-        .text()
-        .trim();
+      result.link = $(this)
+        .children('a')
+        .attr('href');
 
-      var result = {
-        title: title,
-        link: link,
-        snippet: snippet,
-        articleCreated: articleCreated,
-        isSaved: false,
-      };
-
-      console.log(result);
-
-      db.Article.findOne({ title: title })
-        .then(function(data) {
-          console.log(data);
-
-          if (data === null) {
-            db.Article.create(result).then(function(dbArticle) {
-              res.json(dbArticle);
-            });
-          }
+      db.Article.create(result)
+        .then(function(dbArticle) {
+          console.log(dbArticle);
         })
         .catch(function(err) {
-          res.json(err);
+          console.log(err);
         });
     });
+
+    res.send('Scrape Complete');
   });
 });
 
+app.get('/articles', function(req, res) {
+  db.Article.find({})
+    .then(function(dbArticle) {
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
+});
 
 // Start the server
 app.listen(PORT, function() {
